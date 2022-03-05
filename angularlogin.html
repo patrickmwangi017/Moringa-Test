@@ -65,4 +65,58 @@
         </form>
     </div>
 </body>
+<script>
+    var app = angular.module("myApp", []);
+    app.controller("myController", function($scope, $http, $window){
+        $scope.btnName = "login";
+        $scope.showregister = false;
+        $scope.showlogin = true;
+        $scope.registerpage = function(){
+            $scope.showregister = $scope.showregister ? false : true;
+            $scope.showlogin = false;
+            $scope.btnName = "Register";
+            $scope.registerform.$setPristine();
+            $scope.username = null;
+            $scope.password = null;
+        }
+        $scope.loginpage = function(){
+            $scope.showlogin = $scope.showlogin ? false : true;
+            $scope.showlogin = false;
+            $scope.btnName = "Login";
+            $scope.registerform.$setPristine();
+            $scope.username = null;
+            $scope.password = null;
+        }
+        $scope.login = function(){
+            if($scope.btnName == "Register"){
+                if($scope.username != null && $scope.password != null && $scope.cpassword != null){
+                    $scope.postf();
+                }
+            }
+            else if($scope.btnName == "Login"){
+                if($scope.username != null && $scope.password != null){
+                    $scope.postf();
+                }
+            }
+        }
+        $scope.postf = function(){
+            $http.post(
+                "login.php", {
+                    'username' : $scope.username,
+                    'password' : $scope.password,
+                    'btnName' : $scope.btnName
+                }
+            ).success(function(data){
+                alert(data);
+                if(data == "Username already exists."){
+                    return;
+                }
+                $window.location.reload();
+                if(data == "Login Successful"){
+                    location = 'profile.html';
+                }
+            })
+        }
+    });
+</script>
 </html>
