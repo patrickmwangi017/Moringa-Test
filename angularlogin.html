@@ -10,6 +10,59 @@
 </title>
 </head>
 <body ng-app="myApp" ng-controller="myController">
-    
+    <div class="box">
+        <img src="user.png" alt="" class="avatar">
+        <form name="registerform" novalidate autocomplete="off">
+            <h1 ng-show="showlogin">Login</h1>
+            <h1 ng-show="showregister">Register</h1>
+            <div class="textfield">
+                <i class="fa fa-user icon"></i>
+                <input type="text" class="textfield-input" name="username" ng-model="username" required>
+                <label>Username</label>
+                <div class="indicator"></div>
+                <div>
+                    <span class="error" ng-show="signupform.$submitted || signupform.username.$dirty"><i class="fa fa-excalmation-circle"></i>
+                        <span class="error" ng-show="signupform.username.$error.required"><i class="fa fa-excalmation-circle"></i>Username is Required</span>
+                    </span><br>
+                </div>
+            </div>
+            <div class="textfield">
+                <i class="fa fa-key icon"></i>
+                <input type="password" class="textfield-input" name="password" ng-model="password" required>
+                <label>Password</label>
+                <div class="indicator"></div>
+                <div>
+                    <span class="error" ng-show="signupform.$submitted || signupform.password.$dirty"><i class="fa fa-excalmation-circle"></i>
+                        <span class="error" ng-show="signupform.password.$error.required"><i class="fa fa-excalmation-circle"></i>Password is Required</span>
+                    </span><br>
+                </div>
+            </div>
+            <div class="textfield">
+                <i class="fa fa-check icon"></i>
+                <input type="password" class="textfield-input" name="cpassword" ng-model="cpassword" required>
+                <label>Confirm Password</label>
+                <div class="indicator"></div>
+                <div>
+                    <span class="error" ng-show="signupform.cpassword.$dirty && !(signupform.cpassword.$error.required)"><i class="fa fa-excalmation-circle"></i>
+                        <span class="error" ng-show="password != cpassword"><i class="fa fa-excalmation-circle"></i>Passwords don't match</span>
+                    </span>
+                    <span class="error" ng-show="signupform.$submitted || signupform.cpassword.$dirty"><i class="fa fa-excalmation-circle"></i>
+                        <span class="error" ng-show="signupform.cpassword.$error.required"><i class="fa fa-excalmation-circle"></i>Confirm Password is Required</span>
+                    </span>
+                </div>
+            </div><br>
+            <div class="logindiv">
+                <button type="submit" name="submit" class="loginbtn" ng-click="login()">
+                    <span class="lspan"></span>
+                    <span class="lspan"></span>
+                    <span class="lspan"></span>
+                    <span class="lspan"></span>
+                    {{btnName}}
+                </button>
+            </div>
+            <p class="account" ng-show="showregister">Already have an account? <span> <a ng-click="loginpage()">Login</a> </span> </p>
+            <p class="account" ng-show="showlogin">Don't have an account? <span> <a ng-click="registerpage()">Register</a> </span> </p>
+        </form>
+    </div>
 </body>
 </html>
